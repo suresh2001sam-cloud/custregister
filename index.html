@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login & Registration with Animation</title>
+  <style>
+    * { box-sizing: border-box; }
+    body, html {
+      margin: 0; padding: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    .container {
+      width: 500px; height: 750px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .form-wrapper {
+      width: 200%; height: 100%;
+      display: flex;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    form {
+      width: 60%;
+      padding: 40px 30px;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    h2 { text-align: center; margin-bottom: 20px; color: #333; }
+
+    label { margin-bottom: 6px; font-weight: 600; color: #555; }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    input[type="tel"],
+    input[type="file"] {
+      width: 100%; padding: 10px; margin-bottom: 15px;
+      border: 1px solid #ccc; border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 12px; width: 100%;
+      font-size: 16px; font-weight: 600;
+      color: white; background-color: #007bff;
+      border: none; border-radius: 6px;
+      cursor: pointer; margin-top: 5px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover { background-color: #0056b3; }
+
+    .link-button {
+      margin-top: 10px; text-align: center;
+      color: #007bff; cursor: pointer; font-weight: 600;
+      user-select: none;
+    }
+    .link-button:hover { text-decoration: underline; }
+
+    /* Decorative image */
+    .form-image {
+      width: 80px; height: 80px;
+      margin: 0 auto 20px auto;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="form-wrapper" id="formWrapper">
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <img src="01.png" class="form-image" alt="My Photo">
+      <h2>Login</h2>
+      <label for="emailLogin">Email:</label>
+      <input type="email" id="emailLogin" placeholder="Enter your email" required />
+
+      <label for="passwordLogin">Password:</label>
+      <input type="password" id="passwordLogin" placeholder="Enter your password" required />
+
+      <button type="submit">Login</button>
+
+      <div class="link-button" id="showRegister">Don't have an account? Register</div>
+    </form>
+
+    <!-- Registration Form -->
+    <form id="registrationForm" enctype="multipart/form-data">
+     <img src="01.png" class="form-image" alt="My Photo">
+      <h2>Register</h2>
+      <label for="fullName">Full Name:</label>
+      <input type="text" id="fullName" placeholder="Enter your full name" required />
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" required />
+
+      <label for="emailReg">Email:</label>
+      <input type="email" id="emailReg" placeholder="Enter your email" required />
+
+      <label for="passwordReg">Password:</label>
+      <input type="password" id="passwordReg" placeholder="Enter your password" required />
+
+      <label for="mobile">Mobile Number:</label>
+      <input type="tel" id="mobile" placeholder="Enter mobile number" required />
+
+      <label for="photo">Customer Photo:</label>
+      <input type="file" id="photo" accept="image/*" required />
+
+      <button type="submit">Register</button>
+
+      <div class="link-button" id="showLogin">Already have an account? Login</div>
+    </form>
+
+  </div>
+</div>
+<script>
+  const formWrapper = document.getElementById('formWrapper');
+  const showRegisterBtn = document.getElementById('showRegister');
+  const showLoginBtn = document.getElementById('showLogin');
+
+  // Slide to Registration form
+  showRegisterBtn.addEventListener('click', () => {
+    formWrapper.style.transform = 'translateX(-50%)';
+    resetForms();
+  });
+
+  // Slide back to Login form
+  showLoginBtn.addEventListener('click', () => {
+    formWrapper.style.transform = 'translateX(0)';
+    resetForms();
+  });
+
+  function resetForms() {
+    document.getElementById('loginForm').reset();
+    document.getElementById('registrationForm').reset();
+  }
+
+  // Login submission
+  document.getElementById('loginForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('emailLogin').value.trim();
+    const password = document.getElementById('passwordLogin').value.trim();
+
+    if (!email || !password) {
+      alert('Please enter both email and password.');
+      return;
+    }
+
+    alert('Login successful! Welcome back.');
+    document.getElementById('loginForm').reset();
+  });
+
+  // Registration submission
+  document.getElementById('registrationForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const fullName = document.getElementById('fullName').value.trim();
+    const dob = document.getElementById('dob').value.trim();
+    const email = document.getElementById('emailReg').value.trim();
+    const password = document.getElementById('passwordReg').value.trim();
+    const mobile = document.getElementById('mobile').value.trim();
+    const photoInput = document.getElementById('photo');
+
+    if (!fullName || !dob || !email || !password || !mobile || photoInput.files.length === 0) {
+      alert('Please fill all the fields and upload a photo.');
+      return;
+    }
+
+    alert('Registration Successful! BoBup Show');
+    resetForms();
+    formWrapper.style.transform = 'translateX(0)'; // back to login
+  });
+</script>
+
+</body>
+</html>
